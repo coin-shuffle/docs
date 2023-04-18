@@ -206,15 +206,15 @@ Firstly, **Alice** will encode her **output** with her public keys:
 
 ```goat
 Alice:
-                                   B.-------.
-                      C.-----.     |C.-----. |
-          D.---.      |D.---. |    ||D.---. ||
- E.-.     |E.-. |     ||E.-. ||    |||E.-. |||
- | A | -> || A ||  -> ||| A ||| -> |||| A ||||
-  '-'     | '-' |     || '-' ||    ||| '-' |||
-           '---'      | '---' |    || '---' ||
-                       '-----'     | '-----' |
-                                    '-------' 
+                                        B.-------.
+                           C.-----.     |C.-----. |
+               D.---.      |D.---. |    ||D.---. ||
+      E.-.     |E.-. |     ||E.-. ||    |||E.-. |||
+ A -> | A | -> || A ||  -> ||| A ||| -> |||| A ||||
+       '-'     | '-' |     || '-' ||    ||| '-' |||
+                '---'      | '---' |    || '---' ||
+                            '-----'     | '-----' |
+                                         '-------' 
 ```
 
 Then, **Alice** will send **encoded output** to **Bob** through **service**.
@@ -237,13 +237,13 @@ B.-------.
  '-------' 
 
 Bob encodes his outputs with his public keys:
-                      C.-----.
-          D.---.      |D.---. | 
- E.-.     |E.-. |     ||E.-. || 
- | B | -> || B ||  -> ||| B ||| 
-  '-'     | '-' |     || '-' || 
-           '---'      | '---' | 
-                       '-----'                             
+                           C.-----.
+               D.---.      |D.---. | 
+      E.-.     |E.-. |     ||E.-. || 
+ B -> | B | -> || B ||  -> ||| B ||| 
+       '-'     | '-' |     || '-' || 
+                '---'      | '---' | 
+                            '-----'                             
 Bobs encoded outputs:
 
 C.-----.    C.-----.  
@@ -268,7 +268,7 @@ C.-----.
 | '---' |    '---'
  '-----' 
  
- C.-----.    
+C.-----.    
 |D.---. |    D.---. 
 ||E.-. ||    |E.-. |
 ||| B ||| -> || B ||
@@ -277,13 +277,13 @@ C.-----.
  '-----' 
 
 Charlie encodes her outputs with her public keys:
-
-          D.---.
- E.-.     |E.-. |
- | C | -> || C ||
-  '-'     | '-' |
-           '---'
-
+     
+               D.---.
+      E.-.     |E.-. |
+ C -> | C | -> || C ||
+       '-'     | '-' |
+                '---'
+     
 Charlie's encoded outputs:
 
 D.---.    D.---.    D.---.
@@ -300,12 +300,17 @@ The process will continue until **Eve** will receive **encoded outputs** from
 ```goat
 Eve decodes David's encoded outputs with her secret key:
 
-E.-.          E.-.           E.-.        E.-.
-| D | -> D    | C | -> C     | B | -> B  | A | -> A
- '-'           '-'            '-'         '-'
+E.-.          E.-.         E.-.        E.-.
+| D | -> D    | C | -> C   | B | -> B  | A | -> A
+ '-'           '-'          '-'         '-'
 
 ```
 
 **Eve** will send that **outputs** to **service** and **service** will
 form transaction with all **inputs** and **outputs** and send it to
 all participants for signing.
+
+Each participant will see, that transaction is valid and at least contains
+their input and output, so they will sign it and send it back to **service**.
+
+The **service** will gather all required signature, and then send it to the network.
