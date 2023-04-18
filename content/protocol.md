@@ -292,3 +292,20 @@ D.---.    D.---.    D.---.
 | '-' |   | '-' |   | '-' |
  '---'     '---'     '---'
 ```
+
+
+The process will continue until **Eve** will receive **encoded outputs** from
+**David**. **Eve** will finally get outputs from all participants:
+
+```goat
+Eve decodes David's encoded outputs with her secret key:
+
+E.-.          E.-.           E.-.        E.-.
+| D | -> D    | C | -> C     | B | -> B  | A | -> A
+ '-'           '-'            '-'         '-'
+
+```
+
+**Eve** will send that **outputs** to **service** and **service** will
+form transaction with all **inputs** and **outputs** and send it to
+all participants for signing.
