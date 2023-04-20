@@ -13,21 +13,30 @@ For further explanation, we will use the following terms:
 The shuffling process is done in the following steps:
 
 1. **Participants Registration**. Participants register in the **service** by providing
-    their proof of ownership of **UTXO**s that they want to shuffle.
-2. **Participants connection**. Participants send their RSA public keys to the
+    their ownership proof of **UTXO**s that they want to spent.
+1. **Shuffle start**. **Service** waits for enough participants to register and
+    then starts the shuffling process.
+1. **Participants connection**. Participants send their RSA public keys to the
    **service** to notify service that they are ready for shuffling.
-3. **Keys distribution** - **service** defines order of shuffling and sends RSA
-   public keys that are required for **outputs** **encryption** and
-   **decryption** to each participant.
-4. **Shuffling**. **Service** sends **encrypted outputs** to each participant,
-   participants partially **decrypting** them (_with their own keys_),
-   **encrypting** their **output** and sending them to **service** which will
-   pass them to next participant.
-5. **Transaction Signing**. Last participant that will decrypt **encrypted
-   outputs**, as a result of the process, will get a list of **outputs**
-   (_without any encryption_) and will send them to **service**. **Service**
-   will form a transaction and send it to each participant for signing.
-6. **Transaction Verification**. Each participant will verify that the transaction
-   is valid and contains their **intputs** and **outputs**, and them will sign it.
-7. **Transcation Sending**. After receving all required signatures, **service**
-   will send the transaction to the **Ethereum** network.
+1. **Keys distribution** - **service** defines order of shuffling and sends RSA
+   public keys that are required for participants to decrypt **encrypted
+   outputs**.
+1. **Shuffling**.
+   1. First participant encrypts his **output** with RSA public keys of next
+      participants, in order, that each next participant will be able to decrypt
+      it's upper "layer" of encryption. Then, participant sends **encrypted
+      output** to the **service**.
+   1. Next participant decrypts **encrypted outputs** of the previous
+      participant and encrypts his **output** with RSA public keys of next
+      participants and sends new **encrypted outputs** to the **service**.
+   1. This process continues until the last participant will get a list of
+      **outputs** without any encryption.
+1. **Transaction distribution**. After last participant sends fully decrypted
+   outputs to the **service**, **service** forms a transaction, that each
+   participant should sign.
+1. **Transaction signing**. Each participant verifies transaction,
+   sees that has **input** and **output** are included, signs it, and sends
+   signature to the **service**.
+1. **Transaction sending**. **Service** gathers all signatures and sends
+   transaction to the network.
+   
