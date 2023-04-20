@@ -53,14 +53,14 @@ flowchart TB
 ```
 
 Then, when enough participants will be registered, **service** will form a **room**,
-and notify about that participants, so they can send their RSA public keys.
+and notify the participants, so they can send their RSA public keys.
 
 ```mermaid
 flowchart TB
     Service --> room[[Room: A, B, C, D, E]]
 ```
 
-As the response, paritipants will send their RSA public keys to the **service**:
+As a response, participants will send their RSA public keys to the **service**:
 
 ```mermaid
 flowchart TB
@@ -76,7 +76,7 @@ flowchart TB
     eve_pk --> Service
 ```
 
-**Service** will define order of shuffling and send RSA public keys that are
+**Service** will define the order of shuffling and send RSA public keys that are
 required for **outputs** **encoding** and **decoding** to each participant:
 
 ```mermaid
@@ -93,7 +93,7 @@ flowchart TB
     eve_keys --> Eve
 ```
 
-> Note, that each participant alread knows his own public key.
+> Note, that each participant already knows his public key.
 
 Table of **keys** that each participant has:
 
@@ -123,7 +123,7 @@ flowchart LR
 
 Then, **Alice** will send **encrypted output** to **Bob** through **service**.
 **Bob** knows, that received **encrypted output** is encrypted with his RSA
-public key, so he will decrypt it using his secret key:
+the public key, so he will decrypt it using his secret key:
 
 
 ```mermaid
@@ -140,7 +140,7 @@ flowchart LR
     bob_output2 -- Charlie's key -->bob_output3["C[ D[ E[ @B ] ] ]"]
 ```
 
-Then, **Bob** will shuffle them, and  send **encrypted outputs** to **Charlie** through **service**.
+Then, **Bob** will shuffle them, and send **encrypted outputs** to **Charlie** through **service**.
 
 ```mermaid
 flowchart LR
@@ -149,7 +149,7 @@ flowchart LR
     Service --> Charlie
 ```
 
-**Charlie** will decrypt it's upper layers with her secret key:
+**Charlie** will decrypt its upper layers with her secret key:
 
 ```mermaid
 flowchart LR
@@ -164,7 +164,7 @@ flowchart LR
     charlie_output1 -- David's key -->charlie_output2["D[ E[ @C ] ]"]
 ```
 
-Shuffle them, and send to **David**:
+Shuffle them, and send them to **David**:
 
 ```mermaid
 flowchart LR
@@ -199,4 +199,4 @@ flowchart TB
 Each participant will see, that transaction is valid and at least contains
 their input and output, so they will sign it and send it back to **service**.
 
-The **service** will gather all required signatures, and then send it to the network.
+The **service** will gather all required signatures, and then send them to the network.
